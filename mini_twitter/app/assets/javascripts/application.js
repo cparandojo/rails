@@ -19,9 +19,11 @@
 //= require jquery-ui/widgets/dialog
 
 function show_user(id){	
+	//realizamos llamada buscando la información del usuario.
 	$.getJSON("users/"+id,function(data){
-		$("#name").text(data.name);
-		$("#email").text(data.email);
+		//seteamos la información correspondiente
+		$("#show_name").text(data.name);
+		$("#show_email").text(data.email);
 		$("#show").dialog({closeText:""});
 	})
 
@@ -30,13 +32,18 @@ function show_user(id){
 function post_list(id){	
 	$.getJSON("microposts/",function(data){
 
+		//borramos los elementos anteriores
+		$("#post_list_body tr").detach();
+
 		for(var i=0; i<data.length; i++){
 
-			var nuevaFila="<tr><td>";
-            nuevaFila+=data[i].content;
-            nuevaFila+="</td></tr>";
-            $("#post_list_body").append(nuevaFila);
-
+			if(id==data[i].user_id){
+				//si el id del usuario corresponde con el del post entonces lo añadimos a la lista.
+				var nuevaFila="<tr><td>";
+            	nuevaFila+=data[i].content;
+            	nuevaFila+="</td></tr>";
+            	$("#post_list_body").append(nuevaFila);
+			}
 		}
 		$("#post_list").dialog({closeText:""});
 	})
@@ -44,10 +51,44 @@ function post_list(id){
 
 
 function edit_user(id){	
+
+	$("#userId").val(id);
+	//obtenemos la información del usuario
 	$.getJSON("users/"+id,function(data){
 
-		alert(data);
+		
+		$("#edit_name").val(data.name);
+		$("#edit_email").val(data.email);
+
 		$("#edit_user").dialog({closeText:""});
 	})
 
-}
+};
+
+$(document).ready(function(){
+	//cuando el DOM este listo, definimos la función del evento click del boton.
+   	$("#edit_button").click(function(){
+
+   		var userId =  $("#userId").val();
+    	var editName = $("#edit_name").val();
+    	var editEmail = $("#edit_email").val();
+
+
+	   	var dataInfo = "user[name]="+editName+"&user[email]="+editEmail+"&_method=patch";
+
+	    $.ajax({ url: "/users/"+userId,
+  			type: 'POST',
+  			beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},  			
+  			data: dataInfo,
+  			cache: false,  			
+  			success: function(response) {
+    			alert(response);
+  			}
+		});
+
+	});
+});
+
+
+
+
