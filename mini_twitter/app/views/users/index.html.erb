@@ -75,7 +75,7 @@
 
         <!-- Link para abrir una ventana modal con la información del usuario y poder editarla-->
         <td><%= link_to 'Edit', '', :onclick => "edit_user(#{user.id})", remote: true %></td>
-        <td><%= link_to 'Edit2', edit_user_path(user.id) %></td>
+        <!--<td><%= link_to 'Edit2', edit_user_path(user.id) %></td>-->
         
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 

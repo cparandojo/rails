@@ -73,34 +73,18 @@ $(document).ready(function(){
     	var editName = $("#edit_name").val();
     	var editEmail = $("#edit_email").val();
 
-    	/*
-    	$.post("/users/"+userId,
-	    {
-	    	name:editName,
-			email:editEmail,
-			commit:"Update User",
-			_method:"patch"
 
-	    },
-	    function(data, status){
-	        alert("Data: " + data + "\nStatus: " + status);
-	    });	
-	    */
+	   	var dataInfo = "user[name]="+editName+"&user[email]="+editEmail+"&_method=patch";
 
-
-	    var dataInfo = "name:"+editName+",email:"+editEmail+",commit:Update User,_method:patch";
-
-	    /*$.ajax({ url: "/users/"+userId,
+	    $.ajax({ url: "/users/"+userId,
   			type: 'POST',
-  			beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+  			beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},  			
   			data: dataInfo,
+  			cache: false,  			
   			success: function(response) {
-    			alert();
+    			alert(response);
   			}
-		});*/
-
-
-
+		});
 
 	});
 });
