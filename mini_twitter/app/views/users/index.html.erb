@@ -1,0 +1,75 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Users</h1>
+
+<div id="show" style="display:none">
+    <p>      
+      <strong>Name:</strong>
+      <p id="name"></p>
+    </p>
+    <p>
+      <strong>Email:</strong>
+      <p id="email"></p>
+    </p>
+
+</div>
+
+<div id="post_list" style="display:none">    
+    <table>
+        <thead>
+            <tr>
+              <th>Your posts</th>              
+              <th colspan="3"></th>
+            </tr>
+        </thead>
+
+         <tbody id="post_list_body">
+         </tbody>
+
+    </table>
+</div>
+
+<div id="edit_user" style="display:none">
+
+  <%= render 'form', user: @user %>
+
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        
+        
+        <!-- <td><%= link_to 'Show', user %></td> -->
+       
+        <td><%= link_to 'Show', 'user', :onclick => "show_user(#{user.id})", remote: true %></td>  
+
+        <!--<td><%= link_to 'Edit', edit_user_path(user) %></td>-->
+        <td><%= link_to 'Edit', '', :onclick => "edit_user(#{user.id})", remote: true %></td>
+
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <td><%= link_to 'Create Post', microposts_path %></td>
+
+        <td><%= link_to 'Post list', 'user', :onclick => "post_list(#{user.id})", remote: true%></td>  
+
+      </tr>
+    <% end %>
+
+  </tbody>
+</table>
+  <%= link_to 'New User', new_user_path %>
+<br>
+
+
