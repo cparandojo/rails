@@ -73,14 +73,35 @@ $(document).ready(function(){
     	var editName = $("#edit_name").val();
     	var editEmail = $("#edit_email").val();
 
-    	$.post("/users",
+    	/*
+    	$.post("/users/"+userId,
 	    {
-	        name: editName,
-	        email: editEmail
+	    	name:editName,
+			email:editEmail,
+			commit:"Update User",
+			_method:"patch"
+
 	    },
 	    function(data, status){
 	        alert("Data: " + data + "\nStatus: " + status);
-	    });
+	    });	
+	    */
+
+
+	    var dataInfo = "name:"+editName+",email:"+editEmail+",commit:Update User,_method:patch";
+
+	    /*$.ajax({ url: "/users/"+userId,
+  			type: 'POST',
+  			beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+  			data: dataInfo,
+  			success: function(response) {
+    			alert();
+  			}
+		});*/
+
+
+
+
 	});
 });
 
